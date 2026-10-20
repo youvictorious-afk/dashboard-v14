@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f97316">
+<meta name="description" content="Dashboard V14 — your personal command centre">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Dashboard V14</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#" aria-label="Dashboard V14 home"><span class="brand-mark">V</span><span><b>VERTIX</b><small>PERSONAL OS</small></span></a>
+    <div class="side-label">WORKSPACE</div>
+    <nav class="side-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-view="overview"><span>◫</span> Overview</button>
+      <button class="nav-item" data-view="activity"><span>◷</span> Activity</button>
+      <button class="nav-item" data-view="tasks"><span>✓</span> Tasks & reminders</button>
+      <button class="nav-item" data-view="finance"><span>↗</span> Finance</button>
+      <button class="nav-item" data-view="accounts"><span>▦</span> Account hub</button>
+      <button class="nav-item" data-view="spanish"><span>文</span> Spanish learning</button>
+      <button class="nav-item" data-view="notes"><span>▤</span> Notes & vault</button>
+      <button class="nav-item" data-view="settings"><span>⚙</span> Settings</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sync-card"><span class="live-dot"></span><div><b>Local workspace</b><small>Your data stays in this browser</small></div></div>
+      <div class="profile"><div class="avatar">Y</div><div><b>My Workspace</b><small>Personal dashboard</small></div><button class="icon-btn" id="profileMenu" title="Workspace menu">···</button></div>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
+      <div class="crumb"><span>Workspace</span><i>/</i><b id="pageCrumb">Overview</b></div>
+      <div class="top-actions">
+        <button class="icon-btn" id="searchBtn" title="Search">⌕</button>
+        <button class="icon-btn notification-btn" id="notifyBtn" title="Notifications">♧<span class="notify-dot"></span></button>
+        <button class="date-pill" id="datePill">Today</button>
+      </div>
+    </header>
+    <div class="content">
+      <section class="welcome-row">
+        <div><div class="eyebrow"><span class="live-dot"></span> YOUR DAILY SIGNAL</div><h1 id="greeting">Good afternoon.</h1><p class="muted">One clear view of your day, accounts and progress.</p></div>
+        <button class="primary-btn" id="quickAddBtn"><span>＋</span> Quick add</button>
+      </section>
+
+      <section class="view active" id="view-overview">
+        <div class="metric-grid">
+          <article class="metric-card balance-card"><div class="card-top"><span>Total balance</span><span class="tag tag-white">PERSONAL</span></div><div class="metric-value" id="balanceValue">₹0.00</div><div class="metric-foot"><span class="trend">↗</span><span id="balanceCaption">Add transactions to track your balance</span></div><div class="balance-orb orb-one"></div><div class="balance-orb orb-two"></div></article>
+          <article class="metric-card"><div class="card-top"><span>Tasks completed</span><span class="metric-icon orange">✓</span></div><div class="metric-value" id="taskMetric">0 <small>/ 0</small></div><div class="progress-track"><span id="taskProgress" style="width:0%"></span></div><div class="metric-foot"><span id="taskCaption">Start with one small win</span></div></article>
+          <article class="metric-card"><div class="card-top"><span>Income this month</span><span class="metric-icon green">↙</span></div><div class="metric-value" id="incomeValue">₹0</div><div class="metric-foot"><span class="muted">Recorded transactions</span></div></article>
+          <article class="metric-card"><div class="card-top"><span>Expenses this month</span><span class="metric-icon rose">↗</span></div><div class="metric-value" id="expenseValue">₹0</div><div class="metric-foot"><span class="muted">Recorded transactions</span></div></article>
+        </div>
+        <div class="dashboard-grid">
+          <article class="panel spending-panel"><div class="panel-head"><div><h2>Money overview</h2><p>Income vs expenses · current month</p></div><button class="text-btn" data-goto="finance">View finance ↗</button></div><div class="chart-legend"><span><i class="legend-income"></i> Income</span><span><i class="legend-expense"></i> Expenses</span></div><div class="chart" id="moneyChart" aria-label="Income and expenses chart"></div><div class="chart-bottom"><span><b id="chartIncome">₹0</b><small>Income</small></span><span><b id="chartExpense">₹0</b><small>Expenses</small></span><span><b id="chartNet">₹0</b><small>Net flow</small></span></div></article>
+          <article class="panel tasks-panel"><div class="panel-head"><div><h2>Today’s focus</h2><p>Your next steps</p></div><button class="round-add" id="addTaskBtn" aria-label="Add task">＋</button></div><div class="task-list" id="focusTasks"></div><button class="outline-btn full-btn" data-goto="tasks">Open task manager <span>→</span></button></article>
+          <article class="panel activity-panel"><div class="panel-head"><div><h2>Recent activity</h2><p>Latest changes in your workspace</p></div><button class="text-btn" data-goto="activity">View all ↗</button></div><div id="recentActivity" class="activity-list"></div></article>
+          <article class="panel shortcuts-panel"><div class="panel-head"><div><h2>Quick access</h2><p>Your everyday tools</p></div><button class="text-btn" data-goto="accounts">Manage</button></div><div class="shortcut-grid" id="shortcutGrid"></div></article>
+        </div>
+        <div class="bottom-grid">
+          <article class="panel spanish-mini"><div class="panel-head"><div><h2>Spanish learning</h2><p>Little by little, every day</p></div><span class="tag">STUDY HUB</span></div><div class="spanish-content"><div class="language-icon">ñ</div><div class="spanish-stat"><b id="spanishMinutes">0 min</b><span>Study time logged</span></div><div class="spanish-stat"><b id="vocabCount">0</b><span>Vocabulary saved</span></div></div><button class="outline-btn full-btn" data-goto="spanish">Continue learning <span>→</span></button></article>
+          <article class="panel note-mini"><div class="panel-head"><div><h2>Quick note</h2><p>Capture it before you forget</p></div><span class="note-symbol">✎</span></div><textarea id="quickNote" placeholder="Write a thought, idea or reminder…"></textarea><div class="note-footer"><span id="noteSaved">Autosaves on this device</span><button class="text-btn" id="saveNoteBtn">Save note ↗</button></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-tasks"><div class="section-heading"><div><h2>Tasks & reminders</h2><p>Plan your next move. Check things off as you go.</p></div><button class="primary-btn" id="tasksAddBtn">＋ Add task</button></div><div class="panel"><div class="toolbar"><div class="filter-tabs" id="taskFilters"><button class="selected" data-filter="all">All tasks</button><button data-filter="open">To do</button><button data-filter="done">Completed</button></div><span class="muted" id="taskCountLabel"></span></div><div class="full-task-list" id="allTasks"></div></div></section>
+
+      <section class="view" id="view-finance"><div class="section-heading"><div><h2>Finance tracker</h2><p>Keep a simple record of money in and money out.</p></div><button class="primary-btn" id="addTransactionBtn">＋ Add transaction</button></div><div class="metric-grid compact-metrics"><article class="metric-card"><div class="card-top"><span>Current balance</span><span class="metric-icon orange">₹</span></div><div class="metric-value" id="financeBalance">₹0</div><div class="metric-foot">Based on entries you record</div></article><article class="metric-card"><div class="card-top"><span>Total income</span><span class="metric-icon green">↙</span></div><div class="metric-value" id="financeIncome">₹0</div><div class="metric-foot">All recorded income</div></article><article class="metric-card"><div class="card-top"><span>Total expenses</span><span class="metric-icon rose">↗</span></div><div class="metric-value" id="financeExpense">₹0</div><div class="metric-foot">All recorded expenses</div></article></div><div class="panel"><div class="panel-head"><div><h2>Transactions</h2><p>Manual records only — no bank connection is active.</p></div><button class="outline-btn" id="exportTransactions">Export CSV ↓</button></div><div class="table-wrap"><table><thead><tr><th>DETAIL</th><th>DATE</th><th>TYPE</th><th>AMOUNT</th><th></th></tr></thead><tbody id="transactionsBody"></tbody></table></div></div></section>
+
+      <section class="view" id="view-accounts"><div class="section-heading"><div><h2>Account hub</h2><p>One place for your links, tools and workspaces.</p></div><button class="primary-btn" id="addLinkBtn">＋ Add shortcut</button></div><div class="notice"><b>Security note</b><span>Shortcuts open official websites. Passwords are not stored here and accounts are not connected automatically.</span></div><div class="shortcut-grid large-shortcuts" id="allShortcuts"></div></section>
+
+      <section class="view" id="view-spanish"><div class="section-heading"><div><h2>Spanish learning hub</h2><p>Track study time and build your personal vocabulary list.</p></div><button class="primary-btn" id="logStudyBtn">＋ Log study</button></div><div class="metric-grid compact-metrics"><article class="metric-card"><div class="card-top"><span>Study minutes</span><span class="metric-icon orange">◷</span></div><div class="metric-value" id="spanishTotal">0</div><div class="metric-foot">Total minutes logged</div></article><article class="metric-card"><div class="card-top"><span>Saved vocabulary</span><span class="metric-icon green">ñ</span></div><div class="metric-value" id="spanishVocabTotal">0</div><div class="metric-foot">Your personal word bank</div></article><article class="metric-card"><div class="card-top"><span>Study sessions</span><span class="metric-icon rose">✦</span></div><div class="metric-value" id="spanishSessions">0</div><div class="metric-foot">Sessions recorded</div></article></div><div class="two-col"><div class="panel"><div class="panel-head"><div><h2>Add vocabulary</h2><p>Save Spanish words with their meaning.</p></div></div><form id="vocabForm" class="stack-form"><label>Spanish word or phrase<input required id="vocabSpanish" placeholder="e.g. darse cuenta"></label><label>English meaning<input required id="vocabEnglish" placeholder="e.g. to realise"></label><label>Hindi meaning (optional)<input id="vocabHindi" placeholder="e.g. एहसास होना"></label><button class="primary-btn" type="submit">Save vocabulary</button></form></div><div class="panel"><div class="panel-head"><div><h2>Vocabulary bank</h2><p>Your saved words</p></div></div><div class="vocab-list" id="vocabList"></div></div></div></section>
+
+      <section class="view" id="view-notes"><div class="section-heading"><div><h2>Notes & vault</h2><p>Keep useful notes in one searchable place.</p></div><button class="primary-btn" id="addVaultNote">＋ New note</button></div><div class="search-row"><input id="noteSearch" placeholder="Search notes…" aria-label="Search notes"><button class="outline-btn" id="exportData">Export all data ↓</button></div><div class="notes-grid" id="notesGrid"></div></section>
+
+      <section class="view" id="view-activity"><div class="section-heading"><div><h2>Activity log</h2><p>A local history of actions taken in this dashboard.</p></div><button class="outline-btn" id="clearActivity">Clear log</button></div><div class="panel"><div class="activity-list expanded" id="allActivity"></div></div></section>
+
+      <section class="view" id="view-settings"><div class="section-heading"><div><h2>Settings & data</h2><p>Manage how this dashboard behaves on this device.</p></div></div><div class="settings-grid"><div class="panel"><h2>Workspace preferences</h2><p class="muted">Your dashboard is designed to work without a paid service.</p><label class="setting-row"><span><b>Compact layout</b><small>Reduce spacing between cards</small></span><input type="checkbox" id="compactToggle"></label><label class="setting-row"><span><b>Use dark theme</b><small>Switch to a darker appearance</small></span><input type="checkbox" id="darkToggle"></label><div class="setting-row"><span><b>Currency</b><small>Display currency for your records</small></span><select id="currencySelect"><option value="INR">INR · ₹</option><option value="USD">USD · $</option><option value="EUR">EUR · €</option><option value="GBP">GBP · £</option></select></div></div><div class="panel"><h2>Data & privacy</h2><p class="muted">Data is stored in this browser using local storage. It does not automatically sync to other devices.</p><div class="data-actions"><button class="outline-btn full-btn" id="backupBtn">Download backup JSON ↓</button><label class="outline-btn full-btn import-label">Import backup JSON ↑<input type="file" id="importFile" accept="application/json" hidden></label><button class="danger-btn full-btn" id="resetDataBtn">Reset dashboard data</button></div><p class="tiny muted">Keep a backup before clearing browser data or switching devices.</p></div></div></section>
+      <footer class="footer"><span>VERTIX · DASHBOARD V14</span><span>Independent workspace · <span id="currentYear"></span></span></footer>
+    </div>
+  </main>
+</div>
+
+<dialog id="actionDialog"><form method="dialog" id="dialogForm"><div class="dialog-head"><div><div class="eyebrow">QUICK ACTION</div><h2 id="dialogTitle">Add item</h2></div><button class="icon-btn" value="cancel" aria-label="Close">×</button></div><div id="dialogFields" class="dialog-fields"></div><div class="dialog-actions"><button class="outline-btn" value="cancel">Cancel</button><button class="primary-btn" id="dialogSubmit" value="default">Save</button></div></form></dialog>
+<div class="toast" id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
